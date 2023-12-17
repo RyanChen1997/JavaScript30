@@ -59,7 +59,26 @@
   <audio data-key="76" src="sounds/tink.wav"></audio>
 
 <script>
+  function playAudio(e){
+    audio = document.body.querySelector(`audio[data-key='${e.keyCode}']`);
+    if (!audio) return;
+    audio.currentTime = 0; // reset time. It will play from the beginning when your press the key agrain.
+    audio.play();
+    key = document.body.querySelector(`.key[data-key='${e.keyCode}']`);
+    key.classList.add("playing");
+  }
 
+  function playEnd(e){
+    if (e.propertyName != "transform") return;
+    this.classList.remove("playing");
+  }
+
+  window.addEventListener("keydown", playAudio);
+
+  keys = document.querySelectorAll(".key");
+  keys.forEach(element => {
+    element.addEventListener("transitionend", playEnd);
+  });
 </script>
 
 
