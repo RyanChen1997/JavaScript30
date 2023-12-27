@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Flex box</title>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <aside class="item item2">2</aside>
+        <article class="item item3">3</article>
+        <aside class="item item4">4</aside>
+        <footer class="item item5">5</footer>
+</body>
+<style>
+    .container {
+        background-color: aqua;
+        display: flex;
+        flex-flow: row wrap;
+    }
+    .container > * {
+        padding: 10px;
+        flex: 1 100%;
+    }
+    .item {
+        border: 2px dashed red;
+    }
+    .item1 {
+        background-color: bisque;
+    }
+    .item2 {
+        background-color: lightblue;
+        flex: 1 0 0;
+        order: 1;
+    }
+    .item3 {
+        background-color: lightgreen;
+        flex: 3 0px;
+        order: 2;
+    }
+    .item4 {
+        background-color: lightpink;
+        /* flex: 1 0 0; */
+        order: 3;
+    }
+    .item5 {
+        background-color:blanchedalmond;
+        order: 4;
+    }
+    body {
+        padding: 2em;
+    }
+    
+</style>
+</html>
