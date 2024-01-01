@@ -18,6 +18,49 @@
 <script>
 const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
 
+let cities = [];
+
+fetch(endpoint).
+  then(Blob => Blob.json()).
+  then(data => cities.push(...data));
+
+function matchCity(wordToMatch, cities) {
+  var regex = new RegExp(wordToMatch, "gi");
+  var match = cities.filter(city => {
+    return regex.test(city.city) || regex.test(city.state);
+  });
+  return match;
+}
+
+function displayCity() {
+  var regex = new RegExp(this.value, "gi");
+  const match = matchCity(this.value, cities);
+  const list = match.map(each => {
+    let city = each.city;
+    let state = each.state;
+    const matchCity = city.match(regex);
+    const matchState = state.match(regex);
+    if (matchCity != null) {
+      city = city.replace(matchCity[0], `<span class="hl">${matchCity}</span>`)
+    }
+  if (matchState != null) {
+      state = state.replace(matchState[0], `<span class="hl">${matchState}</span>`)
+    }
+
+    return `
+      <li>
+        <span class="name">${city} ${state}</span>
+        <span class="population">${each.population}</span>
+      </li>`
+  }).join(" ")
+  suggestions.innerHTML = list;
+}
+
+const searchInput = document.querySelector('.search');
+const suggestions = document.querySelector('.suggestions');
+
+searchInput.addEventListener('keyup', displayCity);
+
 </script>
 </body>
 </html>
