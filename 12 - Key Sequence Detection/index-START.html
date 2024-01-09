@@ -7,6 +7,22 @@
     <link rel="icon" href="https://fav.farm/🔥" />
   </head>
   <body>
-    <script></script>
+    <span>Try to press <strong>hello</strong>, it will show something fantastic!</span>
+    <script>
+      let pressed = [];
+      let secretCode = "hello";
+
+      function press(e) {
+        // console.log(e.key);
+        pressed.push(e.key);
+        pressed = pressed.slice(pressed.length > secretCode.length? pressed.length - secretCode.length : 0);
+        if (pressed.join("") == secretCode) {
+          cornify_add();
+        }
+        // console.log(pressed);
+      }
+
+      window.addEventListener("keydown", press);
+    </script>
   </body>
 </html>
