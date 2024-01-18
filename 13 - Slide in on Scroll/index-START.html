@@ -61,20 +61,17 @@
 
     const images = document.querySelectorAll('.slide-in');
 
-    function scroll() {
+    function strollIn(e) {
+      // const scrollAt = (window.scrollY + window.innerHeight) - images[0].height;
+      // console.log(scrollAt);
+
       images.forEach(image => {
-        const scrollAt = window.scrollY + window.innerHeight - image.height / 2;
-        const imageTopUpScrollAt = image.offsetTop < scrollAt;
-        const imageBottonDownWindowTop = image.offsetTop + image.height > window.scrollY;
-        if (imageTopUpScrollAt && imageBottonDownWindowTop) {
-          image.classList.add("active");
-        } else {
-          image.classList.remove("active");
-        }
+        const scrollAt = (window.scrollY + window.innerHeight) - image.height;
+        console.log(scrollAt);
       });
     }
 
-    window.addEventListener('scroll', debounce(scroll));
+    window.addEventListener('scroll', debounce(strollIn));
 
   </script>
 
