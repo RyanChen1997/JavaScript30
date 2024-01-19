@@ -13,6 +13,33 @@
 <script>
   window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
 
+  const recogniton = new SpeechRecognition();
+  recogniton.interimResults = true;
+
+  let p = document.createElement('p');
+  const words = document.querySelector('.words');
+  words.appendChild(p);
+
+  recogniton.addEventListener('result', e => {
+    const transition = Array.from(e.results)
+      .map(result => result[0])
+      .map(result => result.transcript)
+      .join("");
+    
+    p.textContent = transition;
+
+    if (e.results[0].isFinal) {
+      p = document.createElement('p');
+      words.appendChild(p);
+    }
+
+    // console.log(transition);
+  });
+
+  recogniton.addEventListener('end', recogniton.start);
+
+  recogniton.start();
+
 
 </script>
 
